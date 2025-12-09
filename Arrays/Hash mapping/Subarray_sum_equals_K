@@ -1,0 +1,25 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        
+# Brute force method
+        # count=0
+        # for i in range(len(nums)):
+        #     sum=0
+        #     for j in range(i,len(nums)):
+        #         sum=sum+nums[j]
+        #         if sum==k:
+        #             count+=1
+        # return count
+
+
+# Optimal solution - Hashmap + prefix sum
+        count=0
+        s=0
+        mp={0:1}
+        for x in nums:
+            s+=x
+            dif=s-k
+            if dif in mp:
+                count+=mp[dif]
+            mp[s]=mp.get(s,0)+1
+        return count
