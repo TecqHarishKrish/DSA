@@ -1,0 +1,18 @@
+
+
+
+
+# optimised solution 
+
+class Solution:
+    def secondLargestElement(self, nums: List[int]) -> List[int]:
+        l=float('-inf')
+        s=float('-inf')
+        # n=len(nums)
+        for i in nums:
+            if i >l:
+                s=l
+                l=i
+            elif s<i and i<l or i==l:
+                s=i
+        return s if s!=float('-inf') else None
