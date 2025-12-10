@@ -1,5 +1,7 @@
 
 # brute force - O(n^2)
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for i in range(len(nums)):
@@ -10,6 +12,8 @@ class Solution:
 
 
 # Hash mapping method - O(1) - optimized method
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         mp={}
