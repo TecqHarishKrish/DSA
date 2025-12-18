@@ -1,0 +1,193 @@
+*** Java implementation
+
+
+class MinHeapPriorityQueue {
+
+    // Array to store heap elements
+    private int[] heap;
+
+    // Number of elements currently in heap
+    private int size;
+
+    // Constructor: create heap with given capacity
+    public MinHeapPriorityQueue(int capacity) {
+        heap = new int[capacity];
+        size = 0;
+    }
+
+    // ---------------- INSERT OPERATION ----------------
+    public void insert(int val) {
+
+        // Step 1: Insert element at the end
+        int index = size;
+        heap[size] = val;
+        size++;
+
+        // Step 2: Heapify UP
+        // Keep swapping with parent while heap property is violated
+        while (index > 0) {
+
+            // Parent index using formula
+            int parent = (index - 1) / 2;
+
+            // If parent is already smaller, heap property satisfied
+            if (heap[parent] <= heap[index])
+                break;
+
+            // Swap parent and current element
+            int temp = heap[parent];
+            heap[parent] = heap[index];
+            heap[index] = temp;
+
+            // Move index upward
+            index = parent;
+        }
+    }
+
+    // ---------------- DELETE MIN OPERATION ----------------
+    public int deleteMin() {
+
+        // If heap is empty
+        if (size == 0)
+            return -1;
+
+        // Store minimum value (root)
+        int min = heap[0];
+
+        // Step 1: Move last element to root
+        heap[0] = heap[size - 1];
+        size--;
+
+        // Step 2: Heapify DOWN from root
+        heapifyDown(0);
+
+        return min;
+    }
+
+    // ---------------- HEAPIFY DOWN ----------------
+    private void heapifyDown(int index) {
+
+        while (true) {
+            int smallest = index;
+
+            // Left and right child indices
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+
+            // Check left child
+            if (left < size && heap[left] < heap[smallest])
+                smallest = left;
+
+            // Check right child
+            if (right < size && heap[right] < heap[smallest])
+                smallest = right;
+
+            // If no violation, stop
+            if (smallest == index)
+                break;
+
+            // Swap with smallest child
+            int temp = heap[index];
+            heap[index] = heap[smallest];
+            heap[smallest] = temp;
+
+            // Move index downward
+            index = smallest;
+        }
+    }
+
+    // ---------------- GET MIN ----------------
+    public int getMin() {
+        if (size == 0)
+            return -1;
+        return heap[0];
+    }
+}
+
+
+
+
+
+
+
+
+
+****   Python Implementation
+
+
+class MinHeapPriorityQueue:
+
+    def __init__(self):
+        # List to store heap elements
+        self.heap = []
+
+    # ---------------- INSERT OPERATION ----------------
+    def insert(self, val):
+        # Step 1: Insert element at the end
+        self.heap.append(val)
+        index = len(self.heap) - 1
+
+        # Step 2: Heapify UP
+        while index > 0:
+            parent = (index - 1) // 2
+
+            # If heap property is satisfied, stop
+            if self.heap[parent] <= self.heap[index]:
+                break
+
+            # Swap parent and child
+            self.heap[parent], self.heap[index] = self.heap[index], self.heap[parent]
+
+            # Move index upward
+            index = parent
+
+    # ---------------- DELETE MIN OPERATION ----------------
+    def delete_min(self):
+        if not self.heap:
+            return None
+
+        # Store root value
+        min_val = self.heap[0]
+
+        # Move last element to root
+        self.heap[0] = self.heap[-1]
+        self.heap.pop()
+
+        # Heapify DOWN
+        self.heapify_down(0)
+
+        return min_val
+
+    # ---------------- HEAPIFY DOWN ----------------
+    def heapify_down(self, index):
+        n = len(self.heap)
+
+        while True:
+            smallest = index
+            left = 2 * index + 1
+            right = 2 * index + 2
+
+            # Check left child
+            if left < n and self.heap[left] < self.heap[smallest]:
+                smallest = left
+
+            # Check right child
+            if right < n and self.heap[right] < self.heap[smallest]:
+                smallest = right
+
+            # If no violation, stop
+            if smallest == index:
+                break
+
+            # Swap and move down
+            self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+            index = smallest
+
+    # ---------------- GET MIN ----------------
+    def get_min(self):
+        if not self.heap:
+            return None
+        return self.heap[0]
+
+
+
