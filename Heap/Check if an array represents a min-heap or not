@@ -1,0 +1,59 @@
+
+*** Java implementation
+
+
+
+class Solution {
+
+    // Function to check if array represents a Min Heap
+    static boolean isMinHeap(int[] arr) {
+
+        int n = arr.length;
+
+        // We only need to check internal nodes
+        // Last internal node index = (n/2) - 1
+        for (int i = 0; i < n / 2; i++) {
+
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+
+            // Check left child
+            if (left < n && arr[i] > arr[left]) {
+                return false;
+            }
+
+            // Check right child
+            if (right < n && arr[i] > arr[right]) {
+                return false;
+            }
+        }
+
+        // If no violations found
+        return true;
+    }
+}
+
+
+
+
+*** Python Implementation
+
+
+def is_min_heap(arr):
+    n = len(arr)
+
+    # Only check internal nodes
+    for i in range(n // 2):
+
+        left = 2 * i + 1
+        right = 2 * i + 2
+
+        # Check left child
+        if left < n and arr[i] > arr[left]:
+            return False
+
+        # Check right child
+        if right < n and arr[i] > arr[right]:
+            return False
+
+    return True
