@@ -1,0 +1,71 @@
+***  Java Implementation
+
+
+class Solution {
+
+    // Function to convert Min Heap to Max Heap
+    static void convertMinToMaxHeap(int[] arr) {
+        int n = arr.length;
+
+        // Start from last internal node and heapify down
+        for (int i = (n / 2) - 1; i >= 0; i--) {
+            maxHeapify(arr, n, i);
+        }
+    }
+
+    // Heapify subtree rooted at index i for Max Heap
+    static void maxHeapify(int[] arr, int n, int i) {
+        int largest = i;
+
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        // Find largest among root and children
+        if (left < n && arr[left] > arr[largest])
+            largest = left;
+
+        if (right < n && arr[right] > arr[largest])
+            largest = right;
+
+        // If root is not largest, swap and continue heapifying
+        if (largest != i) {
+            int temp = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = temp;
+
+            maxHeapify(arr, n, largest);
+        }
+    }
+}
+
+
+
+
+*** Python Implementation
+
+
+def convert_min_to_max_heap(arr):
+    n = len(arr)
+
+    # Start from last internal node
+    for i in range((n // 2) - 1, -1, -1):
+        max_heapify(arr, n, i)
+
+
+def max_heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    # Check left child
+    if left < n and arr[left] > arr[largest]:
+        largest = left
+
+    # Check right child
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+
+    # Swap and continue heapifying
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        max_heapify(arr, n, largest)
