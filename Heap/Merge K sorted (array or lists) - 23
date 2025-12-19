@@ -1,0 +1,70 @@
+*** Java Implementation 
+
+
+import java.util.PriorityQueue;
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+
+        // Min heap comparing node values
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+
+        // Step 1: Add first node of each list
+        for (ListNode node : lists) {
+            if (node != null) {
+                pq.offer(node);
+            }
+        }
+
+        // Dummy node for result list
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+
+        // Step 2: Process heap
+        while (!pq.isEmpty()) {
+            ListNode minNode = pq.poll();
+
+            // Add to result
+            tail.next = minNode;
+            tail = tail.next;
+
+            // Push next node from same list
+            if (minNode.next != null) {
+                pq.offer(minNode.next);
+            }
+        }
+
+        return dummy.next;
+    }
+}
+
+
+
+
+
+***  Python Implementation 
+
+
+import heapq
+
+class Solution:
+    def mergeKLists(self, lists):
+        heap = []
+
+        # Push first node of each list
+        for i, node in enumerate(lists):
+            if node:
+                heapq.heappush(heap, (node.val, i, node))
+
+        dummy = ListNode(0)
+        cur = dummy
+
+        while heap:
+            val, i, node = heapq.heappop(heap)
+            cur.next = node
+            cur = cur.next
+
+            if node.next:
+                heapq.heappush(heap, (node.next.val, i, node.next))
+
+        return dummy.next
