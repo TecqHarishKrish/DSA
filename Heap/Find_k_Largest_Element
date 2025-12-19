@@ -1,0 +1,38 @@
+*** Java Implementation
+
+
+import java.util.PriorityQueue;
+
+class Solution{
+    public int findKth_largest_element (int[] nums, int k){
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int i : nums){
+            pq.offer(i);
+            if (pq.size()>k){
+                pq.poll();
+
+            }
+        }return pq.peek();
+    }
+}
+
+
+
+
+*** Python Implementation
+
+import heapq
+
+class Solution:
+    def findKthLargest(self, nums, k):
+
+        heap = []
+
+        for num in nums:
+            heapq.heappush(heap, num)
+
+            if len(heap) > k:
+                heapq.heappop(heap)
+
+        return heap[0]
