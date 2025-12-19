@@ -1,0 +1,46 @@
+*** Java Implementation 
+
+
+import java.util.PriorityQueue;
+import java.util.Collections;
+
+class Solution {
+    public int findKthSmallest(int[] nums, int k) {
+
+        // Max Heap
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        for (int num : nums) {
+            pq.offer(num);
+
+            // Keep heap size = k
+            if (pq.size() > k) {
+                pq.poll(); // remove largest
+            }
+        }
+
+        // Root of max heap is kth smallest
+        return pq.peek();
+    }
+}
+
+
+
+***  Python Implementation
+
+
+import heapq
+
+class Solution:
+    def findKthSmallest(self, nums, k):
+
+        max_heap = []
+
+        for num in nums:
+            heapq.heappush(max_heap, -num)
+
+            if len(max_heap) > k:
+                heapq.heappop(max_heap)
+
+        # Convert back to positive
+        return -max_heap[0]
