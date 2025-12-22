@@ -1,0 +1,90 @@
+*** Java Implementation
+
+
+import java.util.*;  
+// Imports utility classes like Arrays, Map, HashMap
+
+class Solution {
+
+    // This method replaces each element in the array
+    // with its rank (1 = smallest, 2 = second smallest, etc.)
+    public int[] replaceWithRank(int[] arr) {
+
+        // Length of the array
+        // Used for looping and clarity
+        int n = arr.length;
+
+        // ---------------- STEP 1 ----------------
+        // Create a copy of the original array
+        // Why?
+        // We need to sort values to assign ranks,
+        // but we must NOT change the original order.
+        int[] sorted = arr.clone();
+
+        // ---------------- STEP 2 ----------------
+        // Sort the copied array
+        // This gives elements in ascending order,
+        // which helps us decide ranks.
+        Arrays.sort(sorted);
+
+        // ---------------- STEP 3 ----------------
+        // Map to store: value -> rank
+        // Example: 2 -> 1, 15 -> 2, 20 -> 3
+        Map<Integer, Integer> rankMap = new HashMap<>();
+
+        // Rank starts from 1 (smallest element gets rank 1)
+        int rank = 1;
+
+        // Traverse sorted array to assign ranks
+        for (int value : sorted) {
+
+            // If the value is NOT already ranked
+            // (important for handling duplicates)
+            if (!rankMap.containsKey(value)) {
+
+                // Assign current rank to this value
+                rankMap.put(value, rank);
+
+                // Move to next rank
+                rank++;
+            }
+        }
+
+        // ---------------- STEP 4 ----------------
+        // Replace each element in original array
+        // using the rank mapping
+        for (int i = 0; i < n; i++) {
+
+            // Replace value with its rank
+            // Example: 20 -> rankMap.get(20) -> 3
+            arr[i] = rankMap.get(arr[i]);
+        }
+
+        // Return the modified array
+        return arr;
+    }
+}
+
+
+
+
+*** Python Implementation
+
+
+def replace_with_rank(arr):
+
+    # Step 1: Create sorted unique list
+    sorted_arr = sorted(set(arr))
+
+    # Step 2: Map values to ranks
+    rank_map = {}
+    rank = 1
+    for val in sorted_arr:
+        rank_map[val] = rank
+        rank += 1
+
+    # Step 3: Replace elements
+    for i in range(len(arr)):
+        arr[i] = rank_map[arr[i]]
+
+    return arr
